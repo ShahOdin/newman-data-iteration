@@ -15,13 +15,13 @@ const headers = new Promise(function(resolve, reject) {
     }, 2000);
 })
 
-function csvWriter(headers){
+const csvWriter = headers => {
     const dataHeaders = headers
     .map(h => h.trim())
-    .map(col =>
+    .map(h =>
         ({
-            id: col,
-            title: col
+            id: h,
+            title: h
         })
     )
     return createCsvWriter({
