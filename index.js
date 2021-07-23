@@ -6,12 +6,12 @@ require('dotenv').config();
 
 const overrideEnvs = () => {
     const overrideKeys = process.env.NEWMAN_OVERRIDE_ENVS.split(",");
-    Object.fromEntries(
+    return Object.fromEntries(
         Object
             .entries(process.env)
             .filter(([key, value]) => overrideKeys.includes(key))
     );
-}    
+}
 
 const headers = new Promise(function(resolve, reject) {
     setTimeout(function() {
@@ -44,20 +44,30 @@ const csvWriter = headers => {
 }
 
 const runCollection = csvWriter => {
+    const envs = Object
+        .entries(overrideEnvs())
+        .map( ([key, value]) =>
+            (
+                {
+                    "key": key,
+                    "value": value
+                }
+            )
+        );
     newman.run({
         collection: process.env.COLLECTION_PATH,
         reporters: 'cli',
         iterationData: process.env.DATA_PATH,
         delayRequest: process.env.DELAY_REQUEST,
         environment: process.env.ENV_PATH,
-        envVar: [overrideEnvs]
+        envVar: envs    
     }).on('test', (error, args) => {
-        const result = args.executions[0].result
-        let row = result.data;
-        row.code = result.response.code;
-        csvWriter.writeRecords([row])
-    }
-)
+            const result = args.executions[0].result
+            let row = result.data;
+            row.code = result.response.code;
+            csvWriter.writeRecords([row])
+        }
+    )
 }
 
 headers
