@@ -1,8 +1,8 @@
-const newman = require('newman'); // require newman in your project
+const newman = require('newman');
 const createCsvWriter = require('csv-writer').createObjectCsvWriter; 
 const lineReader = require('line-reader');
 
-require('dotenv').config({ path: './dev.env' });
+require('dotenv').config();
 const headers = new Promise(function(resolve, reject) {
     setTimeout(function() {
         lineReader.eachLine(
