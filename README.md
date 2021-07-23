@@ -13,7 +13,7 @@ The library iterates a collection using a csv data file and genrates a result fi
 
 # Config
 
-This app is confirued using the dotenv package. You can modify the configuration in [`dev.env`](./.env) file  or overwrite them in terminal
+This app is confirued using the dotenv package. You can modify the configuration in [`dev.env`](./dev.env) file  or overwrite them in terminal
 
 # Initial setup
 
