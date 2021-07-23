@@ -44,14 +44,14 @@ Taking the [sample data file](data.csv) as an example:
 
 ## Input
 
-| id |offer_id|start|expiry|redeemedat|  |
+| user_id |offer_id|start|expiry|redeemedat|  |
 |--|--|--|--|--|--|
 |48690a62-15da-4bc6-8989-f50764e6c6da|8208ae66-1bee-45f0-82ef-4eb60e2980cd|2021-05-08 14:44:33+00|2021-08-08 14:44:33+00|2021-05-07 16:29:07.390578+00| |
 |3acd122f-993e-408d-b0bc-d06c91dd7aa3|8208ae66-1bee-45f0-82ef-4eb60e2980cd|2021-05-17 09:36:06+00|2021-08-17 09:36:06+00|2021-05-10 09:36:28.670383+00| |
 
 ## Output
 
-| id |offer_id|start|expiry|redeemedat|code|
+| user_id |offer_id|start|expiry|redeemedat|code|
 |--|--|--|--|--|--|
 |48690a62-15da-4bc6-8989-f50764e6c6da|8208ae66-1bee-45f0-82ef-4eb60e2980cd|2021-05-08 14:44:33+00|2021-08-08 14:44:33+00|2021-05-07 16:29:07.390578+00|200|
 |3acd122f-993e-408d-b0bc-d06c91dd7aa3|8208ae66-1bee-45f0-82ef-4eb60e2980cd|2021-05-17 09:36:06+00|2021-08-17 09:36:06+00|2021-05-10 09:36:28.670383+00|200|
