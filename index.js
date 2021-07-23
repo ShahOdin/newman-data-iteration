@@ -40,11 +40,9 @@ const runCollection = csvWriter => {
         iterationData: process.env.DATA_PATH
     }).on('test', (error, args) => {
         const result = args.executions[0].result
-        const row = Object.entries(result.data);
-        const responseCode = result.response.code;
-
-        const record = Object.fromEntries([...row, ["code", responseCode]]);
-        csvWriter.writeRecords([record])
+        let row = result.data;
+        row.code = result.response.code;
+        csvWriter.writeRecords([row])
     }
 )
 }
