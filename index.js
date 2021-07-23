@@ -3,11 +3,12 @@ const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const lineReader = require('line-reader');
 
 require('dotenv').config();
+
 const headers = new Promise(function(resolve, reject) {
     setTimeout(function() {
         lineReader.eachLine(
             process.env.DATA_PATH,
-            function(line, last) {
+            (line, last) => {
                 resolve(line.split(","));
                 return false;
             }
