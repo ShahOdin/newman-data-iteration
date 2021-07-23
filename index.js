@@ -39,7 +39,8 @@ const runCollection = csvWriter => {
         collection: process.env.COLLECTION_PATH,
         reporters: 'cli',
         iterationData: process.env.DATA_PATH,
-        delayRequest: process.env.DELAY_REQUEST
+        delayRequest: process.env.DELAY_REQUEST,
+        environment: process.env.ENV_PATH
     }).on('test', (error, args) => {
         const result = args.executions[0].result
         let row = result.data;

@@ -40,7 +40,7 @@ node index.js
 
 # Example
 
-Taking the [sample data file](data.csv) as an example:
+Taking the [sample data file](sample-data/data.csv) as an example:
 
 ## Input
 
