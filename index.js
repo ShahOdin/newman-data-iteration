@@ -38,7 +38,8 @@ const runCollection = csvWriter => {
     newman.run({
         collection: process.env.COLLECTION_PATH,
         reporters: 'cli',
-        iterationData: process.env.DATA_PATH
+        iterationData: process.env.DATA_PATH,
+        delayRequest: process.env.DELAY_REQUEST
     }).on('test', (error, args) => {
         const result = args.executions[0].result
         let row = result.data;
