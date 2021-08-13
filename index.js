@@ -81,4 +81,3 @@ const runCollection = csvWriter => {
 headers
     .then(csvWriter)
     .then(runCollection)
-    
