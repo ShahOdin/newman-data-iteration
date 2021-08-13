@@ -43,6 +43,14 @@ const csvWriter = headers => {
     });
 }
 
+const parseResult = result => {
+    let extra = {
+        "code": result.response.code
+    };
+    let data = result.data;
+    return [{...data, ...extra}]
+}
+
 const runCollection = csvWriter => {
     const envs = Object
         .entries(overrideEnvs())
@@ -54,6 +62,7 @@ const runCollection = csvWriter => {
                 }
             )
         );
+
     newman.run({
         collection: process.env.COLLECTION_PATH,
         reporters: 'cli',
@@ -63,9 +72,8 @@ const runCollection = csvWriter => {
         envVar: envs    
     }).on('test', (error, args) => {
             const result = args.executions[0].result
-            let row = result.data;
-            row.code = result.response.code;
-            csvWriter.writeRecords([row])
+            const records = parseResult(result);
+            csvWriter.writeRecords(records)
         }
     )
 }
@@ -73,3 +81,4 @@ const runCollection = csvWriter => {
 headers
     .then(csvWriter)
     .then(runCollection)
+    
