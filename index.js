@@ -47,11 +47,15 @@ const csvWriter = headers => {
 }
 
 const parseResult = result => {
-    let extra = {
-        "code": result.response.code
-    };
-    let data = result.data;
-    return [{...data, ...extra}]
+    const fields = [
+        {
+            "code": result.response.code
+        }
+    ].map(obj =>
+        ({...obj, ...result.data})
+    );
+    
+    return fields;
 }
 
 const runCollection = csvWriter => {
