@@ -13,15 +13,18 @@ const overrideEnvs = () => {
     );
 }
 
-const headers = new Promise(function(resolve, reject) {
+const dataLebels = new Promise(function(resolve, reject) {
     setTimeout(function() {
-        lineReader.eachLine(
-            process.env.DATA_PATH,
-            (line, last) => {
-                resolve(line.split(","));
-                return false;
-            }
-        );
+        if(process.env.DATA_PATH){
+            result = lineReader.eachLine(
+                process.env.DATA_PATH,
+                (line, last) => {
+                    resolve(line.split(","));
+                    return false;
+                }
+            );
+        }
+        else resolve([])
     }, 2000);
 })
 
@@ -63,14 +66,19 @@ const runCollection = csvWriter => {
             )
         );
 
-    newman.run({
+    const params = {
         collection: process.env.COLLECTION_PATH,
         reporters: 'cli',
-        iterationData: process.env.DATA_PATH,
         delayRequest: process.env.DELAY_REQUEST,
         environment: process.env.ENV_PATH,
-        envVar: envs    
-    }).on('test', (error, args) => {
+        envVar: envs
+    }             
+    newman
+        .run({
+                ...params,
+                ...(process.env.DATA_PATH && {iterationData: process.env.DATA_PATH})
+            })
+        .on('test', (error, args) => {
             const result = args.executions[0].result
             const records = parseResult(result);
             csvWriter.writeRecords(records)
@@ -78,6 +86,6 @@ const runCollection = csvWriter => {
     )
 }
 
-headers
+dataLebels
     .then(csvWriter)
     .then(runCollection)
